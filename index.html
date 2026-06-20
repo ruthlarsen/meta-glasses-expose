@@ -152,11 +152,13 @@
         cursor: auto;
       }
 
+      body {
+        touch-action: none;
+      }
+
       #cursor-glasses {
         width: 180px;
         height: auto;
-        pointer-events: auto;
-        touch-action: none;
       }
     }
 
@@ -321,15 +323,13 @@
       var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
       if (isTouch) {
-        // Start glasses centered near the top of the viewport
-        revealAtPoint(window.innerWidth / 2, 150);
-
-        var dragging = false;
         var lastTouchX = window.innerWidth / 2;
         var lastTouchY = 150;
         var scrollRAF = null;
         var SCROLL_ZONE = 80;
         var MAX_SCROLL_SPEED = 12;
+
+        revealAtPoint(lastTouchX, lastTouchY);
 
         function getEdgeSpeed(y) {
           var vh = window.innerHeight;
@@ -340,7 +340,7 @@
 
         function edgeScroll() {
           var speed = getEdgeSpeed(lastTouchY);
-          if (speed !== 0 && dragging) {
+          if (speed !== 0) {
             window.scrollBy(0, speed);
             revealAtPoint(lastTouchX, lastTouchY);
             scrollRAF = requestAnimationFrame(edgeScroll);
@@ -349,13 +349,15 @@
           }
         }
 
-        glassesEl.addEventListener('touchstart', function(e) {
-          dragging = true;
+        document.addEventListener('touchstart', function(e) {
           e.preventDefault();
+          var t = e.touches[0];
+          lastTouchX = t.clientX;
+          lastTouchY = t.clientY;
+          revealAtPoint(lastTouchX, lastTouchY);
         }, { passive: false });
 
         document.addEventListener('touchmove', function(e) {
-          if (!dragging) return;
           e.preventDefault();
           var t = e.touches[0];
           lastTouchX = t.clientX;
@@ -372,7 +374,6 @@
         }, { passive: false });
 
         document.addEventListener('touchend', function() {
-          dragging = false;
           if (scrollRAF) {
             cancelAnimationFrame(scrollRAF);
             scrollRAF = null;
