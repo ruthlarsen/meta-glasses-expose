@@ -147,6 +147,19 @@
       filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     }
 
+    @media (hover: none) and (pointer: coarse) {
+      body, body * {
+        cursor: auto;
+      }
+
+      #cursor-glasses {
+        width: 180px;
+        height: auto;
+        pointer-events: auto;
+        touch-action: none;
+      }
+    }
+
     .meta-note {
       font-size: 11px;
       color: var(--text-dim);
@@ -285,31 +298,57 @@
         return Math.hypot(px - nearestX, py - nearestY);
       }
 
-      function moveCursor(e) {
-        var mouseX = e.clientX;
-        var mouseY = e.clientY;
-        glassesEl.style.left = mouseX + 'px';
-        glassesEl.style.top = mouseY + 'px';
+      function revealAtPoint(x, y) {
+        glassesEl.style.left = x + 'px';
+        glassesEl.style.top = y + 'px';
 
         sensitiveSpans.forEach(function(span) {
           var tokens = span.querySelectorAll('.sensitive-char');
-          var leftLensX = mouseX - LENS_OFFSET_X_PX;
-          var rightLensX = mouseX + LENS_OFFSET_X_PX;
-          var lensY = mouseY;
+          var leftLensX = x - LENS_OFFSET_X_PX;
+          var rightLensX = x + LENS_OFFSET_X_PX;
 
           tokens.forEach(function(token) {
             var r = token.getBoundingClientRect();
-            var leftDist = distancePointToRect(leftLensX, lensY, r);
-            var rightDist = distancePointToRect(rightLensX, lensY, r);
-            var insideLens = leftDist <= LENS_RADIUS_PX || rightDist <= LENS_RADIUS_PX;
-            token.classList.toggle('revealed', insideLens);
+            var leftDist = distancePointToRect(leftLensX, y, r);
+            var rightDist = distancePointToRect(rightLensX, y, r);
+            token.classList.toggle('revealed', leftDist <= LENS_RADIUS_PX || rightDist <= LENS_RADIUS_PX);
           });
         });
       }
 
       tokenizeSensitiveSpans();
-      document.addEventListener('mousemove', moveCursor, { passive: true });
-      document.addEventListener('mouseenter', function(e) { moveCursor(e); });
+
+      var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      if (isTouch) {
+        // Start glasses centered near the top of the viewport
+        revealAtPoint(window.innerWidth / 2, 150);
+
+        var dragging = false;
+
+        glassesEl.addEventListener('touchstart', function(e) {
+          dragging = true;
+          e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(e) {
+          if (!dragging) return;
+          e.preventDefault();
+          var t = e.touches[0];
+          revealAtPoint(t.clientX, t.clientY);
+        }, { passive: false });
+
+        document.addEventListener('touchend', function() {
+          dragging = false;
+        });
+      } else {
+        document.addEventListener('mousemove', function(e) {
+          revealAtPoint(e.clientX, e.clientY);
+        }, { passive: true });
+        document.addEventListener('mouseenter', function(e) {
+          revealAtPoint(e.clientX, e.clientY);
+        });
+      }
     })();
   </script>
 </body>
