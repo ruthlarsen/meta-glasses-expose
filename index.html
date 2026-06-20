@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>META AI TERMS — CLASSIFIED</title>
+  <style>
+    :root {
+      --bg: #0d0d0c;
+      --paper: #1a1917;
+      --text: #c4bdb4;
+      --text-dim: #6b6560;
+      --red-reveal: #c41e3a;
+      --border: #2a2825;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: "Courier New", "Consolas", "Liberation Mono", monospace;
+      font-size: 1.1em;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(60,50,40,0.08) 0%, transparent 50%),
+        linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+    }
+
+    /* Hide default cursor; glasses are drawn by #cursor-glasses (120px, hotspot at center) */
+    body, body * {
+      cursor: none;
+    }
+
+    a {
+      color: #8b7355;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #a08060;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem;
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+      background: var(--paper);
+      box-shadow: 0 0 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+      position: relative;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      opacity: 0.6;
+    }
+
+    .stamp {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+      opacity: 0.7;
+      transform: rotate(8deg);
+    }
+
+    h1 {
+      font-size: 1rem;
+      font-weight: normal;
+      letter-spacing: 0.35em;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: 13px;
+      font-weight: normal;
+      letter-spacing: 0.15em;
+      color: var(--text);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p, li {
+      margin-bottom: 0.9rem;
+      color: var(--text);
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Sensitive phrases: inline, default dimmed */
+    .sensitive {
+      
+    }
+
+    .sensitive-char {
+      color: inherit;
+      font-weight: inherit;
+      font-size: 1.1em;
+      transition: color 0.08s ease, font-weight 0.08s ease, font-size 0.08s ease;
+    }
+
+    .sensitive-char.revealed {
+      color: var(--red-reveal);
+      font-weight: bold;
+      font-size: 1.1em;
+      line-height: 1.7;
+    }
+
+    /* Glasses cursor (custom SVG) */
+    #cursor-glasses {
+      position: fixed;
+      width: 240px;
+      height: 82px;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    #cursor-glasses svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    }
+
+    .meta-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor-glasses" aria-hidden="true">
+    <svg id="a" data-name="sunglasses" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.99 29.261">
+      <path d="M84.29,2.741l-2.23-.34c-.96-.19-1.81-.41-2.3-.54l-2.34-.75c-11.76-3.24-28.63,1.66-28.81,1.71-3.09.91-5.51.77-5.54.76h-.14c-.02,0-2.45.15-5.54-.76-.18-.05-17.09-4.96-28.81-1.71l-2.36.75c-.5.14-1.35.35-2.3.54l-2.22.34c-.98.15-1.7.97-1.7,1.96v5.79c0,1.1.9,2,2,2h.17c.44,0,.83.29.96.71l2.04,6.82c1.22,4.07,4.39,7.17,8.5,8.29,4.47,1.21,9.09,1.25,13.53.14l1.25-.31c3.63-.9,6.61-3.37,8.16-6.76l4.1-8.92c.38-.82,1.18-1.33,2.08-1.33h.42c.91,0,1.7.51,2.08,1.33l4.1,8.92c1.55,3.4,4.53,5.87,8.16,6.77l1.25.31c2.13.53,4.32.8,6.49.8,2.35,0,4.72-.32,7.04-.95,1.84-.5,3.54-1.43,4.94-2.69,0,0,2.13-2.31,2.63-3.35s.6-1.24.79-1.84h-.01l1.06-3.49,1.12-3.73c.13-.42.53-.72.96-.72h.17c1.1,0,2-.9,2-2v-5.79c0-.98-.71-1.79-1.7-1.96ZM35.83,10.991c-.67,2.84-2.53,9.71-5.42,11.97-1.92,1.51-5.15,1.95-8.13,1.95-2.8,0-5.36-.39-6.39-.66-5.28-1.4-6.7-3.83-6.96-5.63l-.08-.51c-.84-5.66-1.31-11.13.95-12.92,2.42-1.91,17.21-2.45,23.94,1.14v-.01c1.17.62,1.98,1.79,2.16,3.13.07.52.05,1.04-.07,1.54ZM77.16,18.121l-.08.51c-.27,1.8-1.69,4.23-6.96,5.63-1.03.27-3.6.66-6.39.66-2.98,0-6.22-.45-8.14-1.95-2.89-2.26-4.75-9.12-5.42-11.97-.12-.51-.14-1.02-.07-1.54.19-1.34.99-2.51,2.16-3.13h.01c6.73-3.59,21.52-3.04,23.94-1.13,2.26,1.79,1.79,7.27.95,12.92Z" fill="#60bb46"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <span class="stamp">DOCUMENT — INTERNAL</span>
+    <h1>META AIs TERMS OF SERVICE</h1>
+
+    <p>These Terms of Service (“Terms”) apply when you access and use Meta AIs and other software, tools, services, documentation, content, functionalities, and generative AI features that we make available to you through any Meta Product (collectively, “AIs”). These terms are a legally binding agreement between you and Meta Platforms, Inc. (“Meta”, “we”, “our”, or “us”). By using AIs, you agree to be bound by these Terms, the Meta Terms of Service, and any other applicable terms and policies.</p>
+
+    <h2>Your Commitments</h2>
+    <h2>Eligibility</h2>
+    <p>Without limiting the Meta Terms of Service or any other applicable terms or policies, you cannot access AIs if you are under the age of 13 (or such greater age required in your country or territory) or if you are prohibited from receiving our services or software under applicable laws.</p>
+
+    <h2>Acceptable Uses</h2>
+    <p>You may not access, use, or allow others to access or use AIs in any manner that would:</p>
+    <ul>
+      <li>Override safety or privacy filters, controls, or mechanisms</li>
+      <li>Solicit professional advice (including but not limited to medical, psychological, financial, or legal advice) or content to be used for the purpose of engaging in other regulated activities (including but not limited to political campaigning or lobbying). No statements, responses, or content generated by AIs should be interpreted as an offer or provision of professional care or as a substitute for consultation with a qualified provider.</li>
+      <li>Generate, promote, disseminate, or otherwise use or facilitate content that may violate or infringe upon the rights of others (including but not limited to intellectual property rights and privacy rights)</li>
+      <li>Deceive or mislead others, including but not limited to activity related to plagiarism, scams, phishing or malware, and furtherance of misinformation or disinformation</li>
+      <li>Generate, promote, disseminate, or otherwise use or facilitate adult content, such as erotic chat, pornography, and content meant to arouse sexual excitement</li>
+      <li>Present a risk of death or bodily harm to individuals (including in relation to illegal drugs, weapons, or self-harm)</li>
+      <li>Engage in real-time biometric identification in publicly accessible spaces for the purposes of law enforcement, save as permitted by applicable law</li>
+      <li>Categorise people based on their biometric data to deduce or infer their race, political opinions, trade union membership, religious or philosophical beliefs, sex life or sexual orientation</li>
+      <li>Engage in emotion recognition in the workplace or education, save as permitted by applicable law</li>
+      <li>Engage in the untargeted scraping of facial images from the internet or CCTV footage to build facial recognition databases</li>
+      <li>Engage in predictive policing or criminal risk assessments based on profiling or assessing personality traits and characteristics</li>
+      <li>Evaluate or classify individuals based on social behavior or personal traits that leads to detrimental or unfavorable treatment, either in a context unrelated to the original data or that is unjustified or disproportionate</li>
+      <li>Generate, promote, disseminate, or otherwise use or facilitate content that may harm other individuals, including to encourage self-harm, discrimination, bullying, humiliation, and/or other emotional harms. This also includes causing harm by using AIs to: (i) deploy subliminal, manipulative, or deceptive techniques to distort behavior by impairing decision making; or (ii) exploit people due to their age, disability, or a specific social or economic situation to distort their behavior</li>
+      <li>Violate any applicable law (including but not limited to any manner that promotes, contributes to, or encourages illegal or unlawful activity), including conduct that describes, encourages, supports, or distributes in any form child sexual abuse materials</li>
+    </ul>
+
+    <h2>Prompts, Results, and Other Content</h2>
+    <h2>Rights to Content</h2>
+    <p>AIs allows you to provide materials for processing, which could include text, documents, images, or recordings, depending on the integration (together, “Prompts”) and will generate a response (“Outputs”) based on your Prompts, as well as any feedback you provide (“Feedback”) collectively, “Content”. You may not provide Prompts or use AIs in any way that infringes or violates someone else’s rights, including but not limited to privacy and intellectual property rights. Except as expressly provided in these Terms, you retain all right, title, and interest – including any intellectual property rights – that you have in and to your Prompts. You agree that your provision of Prompts will not violate these Terms, including the Acceptable Uses, and other policies that apply to your use of AIs, which we may supplement, update, or revise, at any time.</p>
+
+    <h2>Media Processing</h2>
+    <p>Depending on where you are located, you may have the option to engage with AIs by providing media (e.g., images, audio, video, etc.). For example, you may speak to Meta AI, provide media for editing, or ask questions about media. To work, each time you provide media, the AI technology transforms and represents the media into an embedding to understand the media and provide the requested service.</p>
+    <p>By providing media to AIs for processing, you represent, warrant and agree that you have, and otherwise provide to Meta, any appropriate permission(s) or consents from persons depicted in such media to conduct such processing.</p>
+
+    <h2>Personal Information</h2>
+    <p>The Meta Privacy Policy explains how we process personal information in the context of AIs, including how we use your interactions with AIs to personalize your experiences and ads, and improve AI at Meta. When you or others interact with AIs, those interactions include information you or others exchange with AIs like Content or messages, along with information we use to make responses from AIs more relevant (like your interests, location and profile).</p>
+    <p>When information is shared with AIs, the AIs will sometimes retain and use that information. <span id="sensitive-1" class="sensitive">Do not share information that you don't want the AIs to use and retain</span>, such as information about sensitive topics.</p>
+    <p><span id="sensitive-2" class="sensitive">Meta may share certain information with select partners</span>, like search engines, to provide you with the most relevant information in connection with our AIs. <a href="https://www.facebook.com/privacy/dialog/ai-partners" target="_blank" rel="noopener">Learn more about how we share information with these partners.</a> <span id="sensitive-3" class="sensitive">By using AIs, you instruct us to share information for this purpose.</span></p>
+    <p>In some cases, Meta will review your interactions with AIs, including the content of your conversations with or messages to AIs, and <span id="sensitive-4" class="sensitive">this review may be automated or manual (human)</span>. When you share your private messages with friends and family with AIs that use Private Processing technology, Meta cannot read or access the messages you have shared. Meta provides Private Processing as a service on your behalf.</p>
+    <p>Depending on where you reside, you or an authorized agent may have the right to request access to your personal information from Meta in a portable format, deletion of your personal information, or correction of your personal information, subject to certain exceptions. To learn more about how you can access and delete your personal information we process in the context of AIs, and exercise any applicable rights, visit our Privacy Center. It is important that you review the Privacy Center before you try to delete any personal information or delete or deactivate your account. Depending on how you use AIs, deleting individual messages, entire threads, or even your account may not delete our copy of your personal information, and the Privacy Center describes the correct way to delete your personal information.</p>
+
+    <h2>Accuracy and Warning Regarding Content</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, META MAKES NO REPRESENTATIONS OR WARRANTIES WITH RESPECT TO THE ACCURACY OF ANY CONTENT, INCLUDING OUTPUTS, OR ANY OUTPUTS THAT ARE DISTURBING OR UPSETTING. YOU SHOULD NOT RELY UPON OUTPUTS FOR ANY PURPOSE OR USE OUTPUTS TO INFORM PROFESSIONAL ADVICE OR DECISIONS RELATED TO MEDICINE, FINANCE, LAW, OR PHARMACEUTICALS. IF YOU PLAN TO USE OUTPUTS FOR ANY REASON, IT IS YOUR SOLE RESPONSIBILITY TO VERIFY OUTPUTS. AIS AND ANY CONTENT MAY NOT REFLECT ACCURATE, COMPLETE, OR CURRENT INFORMATION.</p>
+    <p>The AIs will generate Content based on Prompts that you provide. The specific Content that the AIs will return based on your Prompts cannot be predicted in advance. AIs MIGHT GENERATE CONTENT THAT YOU CONSIDER OFFENSIVE OR OBJECTIONABLE AND/OR THAT DOES NOT REPRESENT META'S VIEWS. BY AGREEING TO THESE TERMS AND BY USING AIS, YOU RECOGNIZE AND ASSUME THE RISK THAT THE PROMPTS YOU PROVIDE MIGHT RESULT IN GENERATION OF CONTENT THAT YOU CONSIDER OFFENSIVE OR OBJECTIONABLE. YOU ALSO RECOGNIZE AND AGREE THAT YOU – NOT META – ARE RESPONSIBLE FOR YOUR USE OF, RESPONSE TO, AND/OR ANY ACTIONS YOU TAKE IN RELATION TO, CONTENT GENERATED BY THE AIS BASED ON YOUR PROMPTS.</p>
+
+    <h2>Meta's Rights</h2>
+    <h2>Meta's Rights Regarding Content</h2>
+    <p>Meta uses Content and related information as described in the Meta Terms of Service and Meta Privacy Policy, and may do so through automated or manual (i.e. human) review and through third-party vendors in some instances, including:</p>
+    <ul>
+      <li>To suspend or remove accounts that violate these Terms with respect to your use of AIs</li>
+      <li>To remove unsafe, discriminatory, or other Content that violates these Terms, Meta's Community Standards, or any other applicable policies and terms</li>
+      <li>To monitor your use of AIs for compliance with these Terms and applicable laws and to report violations of applicable laws or regulations as required by law</li>
+      <li>To conduct and support research</li>
+      <li>To provide, maintain, and improve Meta services and features.</li>
+    </ul>
+
+    <h2>Suspension and Termination</h2>
+    <p>If we determine that you have breached these Terms or other applicable terms and policies, we may suspend or permanently disable your access to AIs or other Meta services or features, and we may permanently disable or delete your account including where we are required to do so for legal reasons.</p>
+
+    <h2>Ownership of AIs</h2>
+    <p>We retain all our respective rights, title, and interest, including intellectual property rights, in and to AIs. Other than the rights of access and use expressly granted in these Terms, these Terms do not grant you any right, title, or interest in or to the AIs.</p>
+
+    <h2>Third Party Materials</h2>
+    <p>AIs may use or be used in connection with content, services, features, and integrations provided by third parties. Meta is not responsible for your use of third party content, services, features, and integrations, and you use these at your own risk.</p>
+
+    <h2>Disclaimer of Warranties and Limitations on Liability</h2>
+    <h2>Disclaimer of Warranties</h2>
+    <p>AIs and Outputs are provided on an "as is" and "as available" basis, and, to the maximum extent permitted by applicable law, we make no guarantees that they will be safe, secure, or error-free, or will function without disruptions, delays, or imperfections. To the maximum extent permitted by law, we are not responsible for Outputs, and you are responsible for checking Outputs for accuracy and suitability. The Outputs provided by AIs do not reflect the views of Meta, our affiliates, or our personnel.</p>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE DISCLAIM ANY AND ALL WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AVAILABILITY, SECURITY, PRIVACY, COMPATIBILITY, NON-INFRINGEMENT, AND ANY WARRANTY IMPLIED BY COURSE OF DEALING, COURSE OF PERFORMANCE, OR TRADE USAGE.</p>
+
+    <h2>Limitations on Liability</h2>
+    <p>Our liability shall be limited to the fullest extent permitted by applicable law, and under no circumstance will we be liable to you for any lost profits, revenues, information, or data, or consequential, special, indirect, exemplary, punitive, or incidental damages arising out of or related to these Terms or AIs (however caused and on any theory of liability, including negligence), even if we have been advised of the possibility of such damages.</p>
+    <p>The laws of some states or jurisdictions may not allow the exclusion or limitation of certain damages, so some or all of the exclusions and limitations set out above may not apply to you. Notwithstanding anything to the contrary in these Terms, in such cases, Meta's liability will be limited to the fullest extent permitted by applicable law.</p>
+
+    <h2>Disputes</h2>
+    <p>Any claim, cause of action, or dispute that arises out of or relates to these Terms is subject to the disputes resolution clause in the Meta Terms of Service.</p>
+
+    <h2>Severability</h2>
+    <p>If any portion of these Terms is found to be unenforceable, the unenforceable portion will be deemed amended to the minimum extent necessary to make it enforceable, and if it can't be made enforceable, then it will be severed and the remaining portion will remain in full force and effect. If we fail to enforce any of these Terms, it will not be considered a waiver. Any amendment to or waiver of these Terms must be made in writing and signed by us.</p>
+
+    <h2>Changes to These Terms</h2>
+    <p>We work constantly to improve our services and develop new features to make our products better for you and our community. As a result, we may need to update these Terms from time to time to accurately reflect our services and practices, to promote a safe and secure experience, and/or to comply with applicable law. Unless otherwise required by law, we will notify you (for example through email or in-app notification) of any material changes to these Terms and give you an opportunity to review them before they go into effect. Once any updated Terms are in effect you will be bound by them if you continue to use our AIs. If you do not agree to the updated Terms, you should stop using AIs before they go into effect.</p>
+
+    <h2>Effective Date</h2>
+    <p>December 18, 2025</p>
+
+    <p class="meta-note">Source: Meta AIs Terms of Service (facebook.com/legal/ai-terms). This document is for reference only.</p>
+  </div>
+
+  <script>
+    (function() {
+      var LENS_RADIUS_PX = 30;
+      var LENS_OFFSET_X_PX = 59;
+      var glassesEl = document.getElementById('cursor-glasses');
+      var sensitiveSpans = document.querySelectorAll('.sensitive');
+
+      function tokenizeSensitiveSpans() {
+        sensitiveSpans.forEach(function(span) {
+          var text = span.textContent || '';
+          span.textContent = '';
+          Array.from(text).forEach(function(ch) {
+            if (ch === ' ') {
+              span.appendChild(document.createTextNode(ch));
+              return;
+            }
+            var token = document.createElement('span');
+            token.className = 'sensitive-char';
+            token.textContent = ch;
+            span.appendChild(token);
+          });
+        });
+      }
+
+      function distancePointToRect(px, py, rect) {
+        var nearestX = Math.max(rect.left, Math.min(px, rect.right));
+        var nearestY = Math.max(rect.top, Math.min(py, rect.bottom));
+        return Math.hypot(px - nearestX, py - nearestY);
+      }
+
+      function moveCursor(e) {
+        var mouseX = e.clientX;
+        var mouseY = e.clientY;
+        glassesEl.style.left = mouseX + 'px';
+        glassesEl.style.top = mouseY + 'px';
+
+        sensitiveSpans.forEach(function(span) {
+          var tokens = span.querySelectorAll('.sensitive-char');
+          var leftLensX = mouseX - LENS_OFFSET_X_PX;
+          var rightLensX = mouseX + LENS_OFFSET_X_PX;
+          var lensY = mouseY;
+
+          tokens.forEach(function(token) {
+            var r = token.getBoundingClientRect();
+            var leftDist = distancePointToRect(leftLensX, lensY, r);
+            var rightDist = distancePointToRect(rightLensX, lensY, r);
+            var insideLens = leftDist <= LENS_RADIUS_PX || rightDist <= LENS_RADIUS_PX;
+            token.classList.toggle('revealed', insideLens);
+          });
+        });
+      }
+
+      tokenizeSensitiveSpans();
+      document.addEventListener('mousemove', moveCursor, { passive: true });
+      document.addEventListener('mouseenter', function(e) { moveCursor(e); });
+    })();
+  </script>
+</body>
+</html>
